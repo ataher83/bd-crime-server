@@ -19,10 +19,9 @@ app.use(
 );
 app.use(express.json());
 
-// MongoDB Connection URI
-// const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.0yjrwty.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.vdhq5.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
-// const uri = `mongodb+srv://taher0095:<db_password>@cluster0.vdhq5.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+
 
 // Create a MongoClient with MongoClientOptions to set the Stable API version
 const client = new MongoClient(uri, {
@@ -43,11 +42,11 @@ async function run() {
 
 
     app.get('/informations', async (req, res) => {
-      const { search, brandFilter, categoryFilter, minPrice, maxPrice, sortPrice, sortDate } = req.query;
+      const { search, crimeFilter, categoryFilter, minPrice, maxPrice, sortPrice, sortDate } = req.query;
       const query = {};
     
-      if (search) query.productName = { $regex: search, $options: 'i' };
-      if (brandFilter) query.productBrand = brandFilter;
+      if (search) query.criminalName = { $regex: search, $options: 'i' };
+      if (crimeFilter) query.crimeType = crimeFilter;
       if (categoryFilter) query.productCategory = categoryFilter;
       if (minPrice || maxPrice) query.productPrice = { 
         ...(minPrice && { $gte: parseInt(minPrice, 10) }), 
