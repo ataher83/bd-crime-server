@@ -42,12 +42,12 @@ async function run() {
 
 
     app.get('/informations', async (req, res) => {
-      const { search, crimeFilter, categoryFilter, minPrice, maxPrice, sortPrice, sortDate } = req.query;
+      const { search, crimeFilter, professionFilter, minPrice, maxPrice, sortPrice, sortDate } = req.query;
       const query = {};
     
       if (search) query.criminalName = { $regex: search, $options: 'i' };
       if (crimeFilter) query.crimeType = crimeFilter;
-      if (categoryFilter) query.productCategory = categoryFilter;
+      if (professionFilter) query.criminalProfession = professionFilter;
       if (minPrice || maxPrice) query.productPrice = { 
         ...(minPrice && { $gte: parseInt(minPrice, 10) }), 
         ...(maxPrice && { $lte: parseInt(maxPrice, 10) }) 
